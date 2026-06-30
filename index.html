@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi3D クリエイター向けインフルエンサーブリーフ＆新機能ガイド</title>
+<style>
+  :root {
+    --sidebar-w: 260px;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --h2-color: #1d4ed8;
+    --h3-color: #0369a1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+    font-size: 15px; line-height: 1.85; color: var(--text);
+    background: #f8fafc;
+  }
+
+  /* ── SIDEBAR ── */
+  #sidebar {
+    position: fixed; top: 0; left: 0;
+    width: var(--sidebar-w); height: 100vh;
+    background: #fff; border-right: 1px solid var(--border);
+    overflow-y: auto; z-index: 100;
+    padding: 0 0 40px;
+  }
+  #sidebar-header {
+    padding: 18px 16px 14px;
+    background: linear-gradient(135deg,#1d4ed8,#0ea5e9);
+    color: #fff; font-weight: 700; font-size: 13px;
+    letter-spacing: .04em; position: sticky; top: 0; z-index: 1;
+  }
+  #sidebar-header span { font-size: 16px; margin-right: 6px; }
+  .toc-section { padding: 6px 0; }
+  .toc-section-title {
+    font-size: 10px; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .08em;
+    padding: 10px 16px 4px; border-top: 1px solid var(--border); margin-top: 4px;
+  }
+  .toc-h2 a {
+    display: block; padding: 5px 16px;
+    font-size: 13px; font-weight: 600; color: var(--h2-color);
+    text-decoration: none; border-left: 3px solid transparent;
+    transition: all .15s;
+  }
+  .toc-h2 a:hover, .toc-h2 a.active {
+    background: var(--accent-light);
+    border-left-color: var(--accent);
+  }
+  .toc-h3 a {
+    display: block; padding: 4px 16px 4px 28px;
+    font-size: 12px; color: var(--muted);
+    text-decoration: none; border-left: 3px solid transparent;
+    transition: all .15s;
+  }
+  .toc-h3 a:hover, .toc-h3 a.active {
+    color: var(--h3-color); background: #f0f9ff;
+    border-left-color: #0ea5e9;
+  }
+
+  /* ── MAIN ── */
+  #main {
+    margin-left: var(--sidebar-w);
+    padding: 0 48px 80px 48px;
+    max-width: calc(var(--sidebar-w) + 860px);
+  }
+  .doc-header {
+    background: linear-gradient(135deg,#1d4ed8 0%,#0ea5e9 60%,#06b6d4 100%);
+    padding: 40px 48px 32px;
+    margin: 0 -48px 40px; color: #fff;
+  }
+  .doc-header h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+  .doc-header .subtitle { font-size: 15px; opacity: .85; }
+  .doc-header .badge {
+    display: inline-block; background: rgba(255,255,255,.2);
+    border: 1px solid rgba(255,255,255,.4);
+    padding: 3px 10px; border-radius: 20px;
+    font-size: 12px; margin-top: 12px; margin-right: 6px;
+  }
+
+  /* ── SECTION LABELS ── */
+  .part-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff;
+    font-size: 12px; font-weight: 700; letter-spacing: .06em;
+    padding: 4px 14px; border-radius: 4px; margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  /* ── HEADINGS ── */
+  h2 {
+    font-size: 20px; font-weight: 700; color: var(--h2-color);
+    margin: 44px 0 14px; padding-bottom: 8px;
+    border-bottom: 2px solid #dbeafe;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2 .anchor-icon { font-size: 14px; opacity: .4; cursor: pointer; user-select: none; }
+  h2 .anchor-icon:hover { opacity: 1; }
+  h3 {
+    font-size: 16px; font-weight: 700; color: var(--h3-color);
+    margin: 28px 0 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  h3 .anchor-icon { font-size: 12px; opacity: .35; cursor: pointer; user-select: none; }
+  h3 .anchor-icon:hover { opacity: 1; }
+  h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin: 20px 0 8px; }
+
+  p { margin: 9px 0; }
+  ul, ol { margin: 8px 0 8px 22px; }
+  li { margin: 4px 0; }
+
+  /* ── BOXES ── */
+  .info-box {
+    background: #f0f9ff; border-left: 4px solid #38bdf8;
+    border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 14px 0;
+  }
+  .warning-box {
+    background: #fff7ed; border-left: 4px solid #fb923c;
+    border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 14px 0;
+  }
+  .success-box {
+    background: #f0fdf4; border-left: 4px solid #4ade80;
+    border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 14px 0;
+  }
+  .tip-box {
+    background: #fefce8; border-left: 4px solid #facc15;
+    border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 14px 0;
+  }
+  .avoid-box {
+    background: #fff1f2; border-left: 4px solid #f43f5e;
+    border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 14px 0;
+  }
+  .key-box {
+    background: linear-gradient(135deg,#f0f9ff,#fafafa);
+    border: 1.5px solid #bae6fd; border-radius: 10px;
+    padding: 18px 22px; margin: 16px 0;
+  }
+  .key-box h4 { color: #0369a1; margin-top: 0; }
+
+  /* ── TABLES ── */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th {
+    background: #1d4ed8; color: #fff;
+    padding: 10px 14px; text-align: left; font-weight: 600;
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  td a { color: var(--accent); }
+
+  /* ── WORKFLOW ── */
+  .workflow {
+    background: #eff6ff; border-radius: 8px;
+    padding: 14px 20px; margin: 14px 0;
+    font-size: 16px; font-weight: 700; color: #1d4ed8;
+    text-align: center; letter-spacing: .05em;
+  }
+
+  /* ── BADGE TAGS ── */
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 12px; font-weight: 600; margin: 2px 3px;
+  }
+  .tag-blue { background: #dbeafe; color: #1d4ed8; }
+  .tag-green { background: #dcfce7; color: #15803d; }
+  .tag-orange { background: #ffedd5; color: #c2410c; }
+  .tag-red { background: #fee2e2; color: #b91c1c; }
+  .tag-purple { background: #ede9fe; color: #7c3aed; }
+  .new-badge {
+    background: #ef4444; color: #fff;
+    font-size: 11px; font-weight: 700; padding: 2px 7px;
+    border-radius: 3px; margin-right: 5px; vertical-align: middle;
+  }
+
+  /* ── IMAGES ── */
+  img { max-width: 100%; height: auto; display: block; margin: 14px auto;
+        border-radius: 6px; box-shadow: 0 2px 12px rgba(0,0,0,.1); }
+  .img-caption { text-align: center; font-size: 12px; color: var(--muted);
+                 margin: -8px 0 14px; }
+  .img-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 14px 0; }
+  .img-row img { flex: 1; min-width: 200px; max-width: 49%; margin: 0; }
+  .img-row-3 img { max-width: 32%; }
+  .img-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin: 14px 0; }
+  .img-grid-4 img { margin: 0; width: 100%; }
+  .img-grid-5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; margin: 14px 0; }
+  .img-grid-5 img { margin: 0; width: 100%; }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    border: none; border-top: 2px solid var(--border);
+    margin: 52px 0;
+  }
+
+  /* ── PROMO BOX ── */
+  .promo-box {
+    background: linear-gradient(135deg,#ff6b35,#f7c59f);
+    color: #fff; border-radius: 12px; padding: 24px 28px;
+    margin: 18px 0; text-align: center;
+  }
+  .promo-box h3 { color: #fff; font-size: 22px; margin: 0 0 6px; }
+  .promo-box p { font-size: 17px; margin: 4px 0; font-weight: 600; }
+
+  /* ── FOOTER / SOCIAL ── */
+  #footer {
+    margin-left: var(--sidebar-w);
+    background: #0f172a; color: #e2e8f0;
+    padding: 40px 48px;
+  }
+  #footer h2 { color: #fff; border: none; font-size: 18px; margin: 0 0 24px; }
+  .social-grid {
+    display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 28px;
+  }
+  .social-card {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 10px; padding: 12px 18px;
+    text-decoration: none; color: #e2e8f0;
+    transition: all .2s; min-width: 180px;
+  }
+  .social-card:hover {
+    background: rgba(255,255,255,.15);
+    border-color: rgba(255,255,255,.3);
+    transform: translateY(-2px);
+  }
+  .social-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .social-info { line-height: 1.3; }
+  .social-name { font-weight: 700; font-size: 14px; color: #fff; }
+  .social-handle { font-size: 12px; color: #94a3b8; }
+  .icon-x     { background: #000; }
+  .icon-yt    { background: #ff0000; }
+  .icon-ig    { background: linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); }
+  .icon-tt    { background: #010101; }
+  .icon-g2    { background: #ff492c; }
+  .footer-note { font-size: 13px; color: #64748b; border-top: 1px solid #1e293b; padding-top: 16px; }
+
+  /* ── SCROLL SPY SCRIPT SUPPORT ── */
+  .scroll-target { scroll-margin-top: 24px; }
+
+  @media (max-width: 900px) {
+    #sidebar { display: none; }
+    #main, #footer { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     LEFT SIDEBAR – TABLE OF CONTENTS
+══════════════════════════════════════════════ -->
+<nav id="sidebar">
+  <div id="sidebar-header"><span>📑</span> 目次 / INDEX</div>
+
+  <div class="toc-section">
+    <div class="toc-section-title">▌ Part 1 ─ インフルエンサーブリーフ</div>
+    <div class="toc-h2"><a href="#background">1. 背景（BACKGROUND）</a></div>
+    <div class="toc-h2"><a href="#what-creators-can-do">2. クリエイターができること</a></div>
+    <div class="toc-h3"><a href="#feature-table">▸ コア機能一覧</a></div>
+    <div class="toc-h2"><a href="#what-we-want">3. 求めていること</a></div>
+    <div class="toc-h2"><a href="#key-talking-point">4. 訴求ポイント</a></div>
+    <div class="toc-h3"><a href="#dos-donts">▸ やるべき・避けるべき</a></div>
+    <div class="toc-h2"><a href="#content-angle">5. コンテンツの方向性</a></div>
+    <div class="toc-h3"><a href="#content-styles">▸ スタイル別動画例</a></div>
+    <div class="toc-h3"><a href="#inspiration">▸ カテゴリ別インスピレーション</a></div>
+    <div class="toc-h2"><a href="#test-cases">6. おすすめテストケース</a></div>
+    <div class="toc-h2"><a href="#deliverables">7. 納品要件</a></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-section-title">▌ Part 2 ─ 新機能ハイライト</div>
+    <div class="toc-h2"><a href="#promo">🎉 周年セール</a></div>
+    <div class="toc-h2"><a href="#beta">🔬 ベータ参加募集</a></div>
+    <div class="toc-h2"><a href="#feature1">機能1：パーツ分割プリント</a></div>
+    <div class="toc-h3"><a href="#highlight1">▸ ハイライト1：自動分割</a></div>
+    <div class="toc-h3"><a href="#highlight2">▸ ハイライト2：プリント可能パーツ</a></div>
+    <div class="toc-h3"><a href="#highlight3">▸ ハイライト3：コネクター自動追加</a></div>
+    <div class="toc-h3"><a href="#connectors">▸ コネクタータイプ</a></div>
+    <div class="toc-h2"><a href="#feature2">機能2：スマート配置＋3MF</a></div>
+    <div class="toc-h3"><a href="#layout-modes">▸ レイアウトモード</a></div>
+    <div class="toc-h3"><a href="#benefits">▸ 主なメリット</a></div>
+    <div class="toc-h2"><a href="#feature3">機能3：マルチカラー印刷</a></div>
+    <div class="toc-h3"><a href="#howto">▸ 使い方ステップ</a></div>
+    <div class="toc-h2"><a href="#coming-soon">近日公開：メイカーテンプレート</a></div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════════ -->
+<div id="main">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <h1>Hi3D クリエイター向けガイド</h1>
+    <div class="subtitle">インフルエンサーブリーフ ＋ 新機能ハイライト（日本語版）</div>
+    <span class="badge">🇯🇵 日本語版</span>
+    <span class="badge">3D Printing</span>
+    <span class="badge">AI 3D Creator</span>
+  </div>
+
+  <!-- ══════════════ PART 1 ══════════════ -->
+  <div class="part-label">📋 Part 1 ── インフルエンサーブリーフ</div>
+
+  <!-- ── 1. BACKGROUND ── -->
+  <h2 id="background" class="scroll-target">
+    <span class="anchor-icon">🔗</span>1. 背景（BACKGROUND）
+  </h2>
+  <p>Hi3Dは <strong>Hitem3D</strong> からブランドをアップグレードしました。</p>
+  <p>Hi3Dは、メイカー・3Dプリントクリエイター・ゲームアーティスト・デジタルアーティスト、そして「アイデアを使える3Dアセットにしたい」と思うすべての人のために作られた、<strong>AI 3D制作プラットフォーム</strong>です。</p>
+
+  <div class="info-box">
+    <strong>スローガン：</strong>All-in-one 3D maker platform（オールインワン3Dメイカープラットフォーム）
+  </div>
+
+  <p>私たちは、AIが生成した3Dモデルを、プリント対応・物理的に製造可能なオブジェクトへと変換するツールを作っています。マルチカラー印刷・モデル分割・アセンブリ準備まで一括でサポートします。</p>
+
+  <div class="success-box">
+    🌐 公式サイト：<a href="https://www.hi3d.ai" target="_blank"><strong>https://www.hi3d.ai</strong></a>
+  </div>
+
+  <div class="tip-box">
+    <strong>📝 Note：</strong>クリエイティブに厳しい制約はありません。あなたのチャンネルスタイルと視聴者が楽しむコンテンツを最優先してください。製品フィードバックもぜひお聞かせください。皆さんのご意見は本当に大切にしています。また、コラボに合いそうな他のクリエイターをご存知でしたら、ご紹介いただけると嬉しいです。
+  </div>
+
+  <!-- ── 2. WHAT CREATORS CAN DO ── -->
+  <h2 id="what-creators-can-do" class="scroll-target">
+    <span class="anchor-icon">🔗</span>2. クリエイターができること
+  </h2>
+  <ol>
+    <li>テキストから画像生成、画像から3Dモデル生成（GPT-Image2 ＆ Nanobananaで編集可能 ／ <a href="https://x.com/Hitem3D/status/2054132282898968906?s=20" target="_blank">画像編集チュートリアル</a>）</li>
+    <li>3Dモデルの編集（<a href="https://docs.google.com/document/d/1ILzjANRy3IovqfMfZQMfTu80Ls-jCPXL2gBWB54JwrM/edit?usp=sharing" target="_blank">チュートリアルを見る</a>）</li>
+    <li>プリント用モデルの分割</li>
+    <li>マルチカラープリントの最適化</li>
+    <li>3D → レリーフSTLへの変換</li>
+  </ol>
+
+  <h3 id="feature-table" class="scroll-target">
+    <span class="anchor-icon">🔗</span>コア機能一覧
+  </h3>
+  <p>詳細は <a href="https://mathmagic.feishu.cn/wiki/N84HwIxYviK2cPk51WScrDM3n0e" target="_blank"><strong>Hi3D 新機能ハイライト</strong></a> をご確認ください。</p>
+
+  <table>
+    <thead>
+      <tr><th>新機能</th><th>できること</th><th>おすすめデモ切り口</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>マルチカラー印刷</strong></td>
+        <td>AIのテクスチャ付き3Dモデルを、実際のフィラメントにマッピングしながら、プリント対応のマルチカラーオブジェクトへ変換。複雑さもコントロール可能。</td>
+        <td>
+          <span class="tag tag-blue">色→フィラメントマッピング</span>
+          <span class="tag tag-blue">プリント複雑度コントロール</span>
+          <span class="tag tag-blue">クリーンリージョン分割</span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>パーツ分割プリント</strong></td>
+        <td>AIが生成したキャラクターモデルを、プリント可能なパーツに自動分割してコネクターも生成。組み立て前提のパーツ設計まで自動化。</td>
+        <td>
+          <span class="tag tag-green">Blenderカット不要</span>
+          <span class="tag tag-green">ピン・ジョイント自動生成</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── 3. WHAT WE WANT ── -->
+  <h2 id="what-we-want" class="scroll-target">
+    <span class="anchor-icon">🔗</span>3. 求めていること（WHAT WE WANT）
+  </h2>
+  <ul>
+    <li>🎬 <strong>リアルなワークフローデモ</strong>：実際に使っている様子をそのまま見せてください</li>
+    <li>💬 <strong>正直なフィードバック</strong>：良い点も気になる点も、率直に伝えてください</li>
+    <li>🖨️ <strong>プリント結果</strong>：成功・失敗どちらのケースも歓迎します</li>
+  </ul>
+
+  <!-- ── 4. KEY TALKING POINT ── -->
+  <h2 id="key-talking-point" class="scroll-target">
+    <span class="anchor-icon">🔗</span>4. 訴求ポイント（KEY TALKING POINT）
+  </h2>
+
+  <div class="key-box">
+    <h4>🎯 最初の15秒フック（必須）</h4>
+    <p>最終的な3D結果を最初に見せてから、元の画像とワークフローを紹介する流れが効果的です。</p>
+  </div>
+
+  <div class="key-box">
+    <h4>📸 Hi3Dオリジナルモデルを最低4つ紹介</h4>
+    <p>良い事例は <a href="https://mathmagic.feishu.cn/wiki/WkoKwEWLHiL42Tk0AjLchavTnof?table=tblCd9hg9CPviMxc&view=vewmxeuimc" target="_blank">ベストケースシート</a> でご確認ください。</p>
+  </div>
+
+  <div class="key-box">
+    <h4>🔄 バージョン比較（オプション）</h4>
+    <ul>
+      <li><span class="tag tag-purple">V3.0（近日公開）</span> 2048解像度</li>
+      <li><span class="tag tag-blue">V2.1</span> 高速生成。Fast Modeで1536ジオメトリを2〜3分で生成。プロトタイプやアイデア出しに最適</li>
+      <li><span class="tag tag-blue">V2.0</span> テクスチャクオリティがより高い</li>
+      <li><span class="tag tag-blue">V1.5</span> より安定、ジオメトリがクリーン</li>
+    </ul>
+  </div>
+
+  <div class="key-box">
+    <h4>🆓 無料トライアルの強み</h4>
+    <p>Hi3Dは無料トライアル期間中にモデルの生成＆ダウンロードが可能。一部の競合サービスはダウンロードに追加クレジットが必要ですが、Hi3Dは不要です。</p>
+  </div>
+
+  <div class="info-box">
+    <strong>💡 自然に盛り込むべきキーワード：</strong><br>
+    クリーンメッシュ / 使えるジオメトリ / 高精細出力 / 1536 Pro解像度 / 無料トライアルダウンロード
+  </div>
+
+  <h3 id="dos-donts" class="scroll-target">
+    <span class="anchor-icon">🔗</span>やるべきこと・避けるべきこと
+  </h3>
+  <table>
+    <thead>
+      <tr><th>❌ 避けるべき</th><th>✅ 効果的なアプローチ</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>機能を羅列するだけのレビュー</td>
+        <td>ビフォー/アフター比較を見せる</td>
+      </tr>
+      <tr>
+        <td>「完璧なAI」として紹介する</td>
+        <td>どんなときに使えるかを具体的に説明する</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── 5. CONTENT ANGLE ── -->
+  <h2 id="content-angle" class="scroll-target">
+    <span class="anchor-icon">🔗</span>5. コンテンツの方向性（Content Angle）
+  </h2>
+  <p>メイカー・3Dアーティスト・デジタルクリエイター・AIエンスージアストの皆さんと協力して、Hi3Dの可能性と実力をアピールしていきたいと思っています。</p>
+
+  <h3 id="content-styles" class="scroll-target">
+    <span class="anchor-icon">🔗</span>スタイル別動画例
+  </h3>
+  <table>
+    <thead>
+      <tr><th>スタイル</th><th>参考リンク</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>ワークフロー動画</strong></td>
+        <td>
+          <a href="https://www.youtube.com/watch?v=WEIk8qVTYAo&t=619s" target="_blank">YouTube参考①</a> ／
+          <a href="https://www.youtube.com/watch?v=LZL8jsKU6rA" target="_blank">YouTube参考②</a> ／
+          <a href="https://x.com/mattworkman/status/1968016945460154400?s=20" target="_blank">MetaHuman事例</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>機能テスト動画</strong></td>
+        <td><a href="https://youtu.be/LRTuv2-JsrQ?si=EHQLnJh4yY0vMcVG" target="_blank">YouTube参考</a></td>
+      </tr>
+      <tr>
+        <td><strong>クリエイティブプロジェクト</strong></td>
+        <td><a href="https://www.youtube.com/shorts/9H0BLGw53Zw" target="_blank">YouTube Shorts参考</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 id="inspiration" class="scroll-target">
+    <span class="anchor-icon">🔗</span>カテゴリ別インスピレーション
+  </h3>
+  <table>
+    <thead>
+      <tr><th>カテゴリ</th><th>参考コンテンツ</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>3Dプリント</strong></td>
+        <td>
+          <a href="https://www.youtube.com/shorts/_OrxI_hPhwY" target="_blank">AIでクレーンゲームのアームを作った #Hi3D</a><br>
+          <a href="https://www.youtube.com/watch?v=sOr0ZeMuhNc" target="_blank">AI画像から3Dプリントフィギュアへ（最速チュートリアル）</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>建築・インテリア</strong></td>
+        <td>
+          <a href="https://www.youtube.com/watch?v=LRTuv2-JsrQ&t=321s" target="_blank">参考①</a> ／
+          <a href="https://www.youtube.com/watch?v=dx3JuzoaC20" target="_blank">参考②</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>ジュエリー</strong></td>
+        <td><a href="https://www.youtube.com/watch?v=gMEUWmN1l3w" target="_blank">$0からジュエリービジネスを始める方法</a></td>
+      </tr>
+      <tr>
+        <td><strong>デザイン・プロダクトビジュアライゼーション</strong></td>
+        <td>
+          <a href="https://www.instagram.com/p/DURXSEnjoY8/" target="_blank">IG参考</a> ／
+          <a href="https://www.youtube.com/watch?v=8HfKtaDx6tM" target="_blank">Blender 5.0フォトリアルテクスチャリング</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>ゲームアセット</strong></td>
+        <td>
+          <a href="https://www.instagram.com/reels/DUJfGbiEmRI/" target="_blank">Hi3D.aiで作ったキャラクターアセット</a> ／
+          <a href="https://www.youtube.com/watch?v=n9gRNbuUikA" target="_blank">UE5 ディストピアメカ環境</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── 6. RECOMMENDED TEST CASES ── -->
+  <h2 id="test-cases" class="scroll-target">
+    <span class="anchor-icon">🔗</span>6. おすすめテストケース（RECOMMENDED TEST CASES）
+  </h2>
+  <ul>
+    <li>🏛️ <strong>複雑な建築物</strong></li>
+    <li>⚙️ <strong>高精細・異素材の製品</strong></li>
+    <li>🤖 <strong>メカ系モデル</strong></li>
+    <li>🐾 <strong>ペット</strong></li>
+    <li>😂 <strong>ミーム系モデル</strong></li>
+  </ul>
+
+  <!-- ── 7. DELIVERABLES ── -->
+  <h2 id="deliverables" class="scroll-target">
+    <span class="anchor-icon">🔗</span>7. 納品要件（DELIVERABLES）
+  </h2>
+
+  <div class="warning-box">
+    <strong>⚠️ 必須事項：</strong>
+    <ul style="margin-top:8px;">
+      <li>📌 <strong>トラッキングリンクを概要欄・ピン留めコメント・bio・Linktreeに必ず掲載</strong></li>
+      <li>🏷️ ハッシュタグを含める：<code>#Hi3D #Hitem3D #AI3D #Imageto3D #3Dgenerator @Hi3D</code></li>
+      <li>📝 タイトルに「Hi3D」を含める</li>
+    </ul>
+  </div>
+
+  <div class="info-box">
+    <strong>📋 その他の要件：</strong>
+    <ul style="margin-top:8px;">
+      <li>動画サムネイルにHi3Dロゴを目立つ位置に配置（任意）→ <a href="https://docs.google.com/document/d/18-vgBS9ob2-KsbQcdcyvQbgM2zDAN8Vc7C09BreajBE/edit?tab=t.0" target="_blank">Hi3Dロゴをダウンロード</a></li>
+      <li>MakerWorldへのクロスポスト（任意）</li>
+      <li>投稿のブースト許可</li>
+      <li>プロモコード入力 or トラッキングリンクからの登録：<strong>最初の200名に追加500クレジット</strong></li>
+      <li>IG：コラボ投稿＋トラッキングリンク付きストーリー</li>
+    </ul>
+  </div>
+
+  <div class="tip-box">
+    🚀 始める前にチェック：<a href="https://mathmagic.feishu.cn/wiki/OIfjwQcbcim87tk4BlscU8DynGh?from=from_copylink" target="_blank"><strong>Hi3D ベストプラクティス</strong></a>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ══════════════ PART 2 ══════════════ -->
+  <div class="part-label">✨ Part 2 ── Hi3D 新機能ハイライト</div>
+
+  <!-- PROMO -->
+  <div class="promo-box" id="promo">
+    <h3>🎉 1周年記念セール 開催中！</h3>
+    <p>期間限定・過去最大のセール　最大 <strong>80% OFF</strong></p>
+    <p style="font-size:14px;font-weight:400;opacity:.9;">クレジットパック「1つ買うと1つ無料」キャンペーンも実施中！</p>
+  </div>
+
+  <!-- BETA -->
+  <h2 id="beta" class="scroll-target">
+    <span class="anchor-icon">🔗</span>🔬 Hitem3D 新機能 早期ベータ参加者募集（限定枠）
+  </h2>
+  <p>Hitem3Dの新機能「マルチカラー印刷」の早期ベータテストに参加する方を、限定で募集しています。</p>
+  <div class="success-box">
+    <strong>参加特典：</strong>
+    <ul style="margin-top:6px;">
+      <li>アンケート回答で <strong>300クレジット</strong> をプレゼント</li>
+      <li>事例付き詳細フィードバックで <strong>追加1,000クレジット</strong></li>
+    </ul>
+    <p style="margin-top:8px;">👉 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfsDRKO9_gsUUzNI0cIL3MWMjfGB45GJEE8YjeyHx3SYdgfLA/viewform?usp=publish-editor" target="_blank">アンケートフォームを開く</a>　／　お問い合わせ: <a href="mailto:liangying1@hitem3d.ai">liangying1@hitem3d.ai</a></p>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- FEATURE 1 -->
+  <h2 id="feature1" class="scroll-target">
+    <span class="anchor-icon">🔗</span>機能アップデート1：パーツ分割プリント（Split-for-Printing）
+  </h2>
+
+  <table>
+    <thead><tr><th>タブ</th><th>説明</th><th>プレビュー</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>キャラクター</strong></td>
+        <td>フィギュア・ミニチュア・人型モデルに対応。体のパーツ分割テンプレート内蔵。ワンクリックで分割＆コネクター自動生成。</td>
+        <td><img src="images/QB8wbFAVFovTFMxJnY6cJVjEnDg.png" alt="キャラクター分割"></td>
+      </tr>
+      <tr>
+        <td><strong>汎用</strong></td>
+        <td>建築物・武器・乗り物・機械など人型以外のモデルに対応。初心者向け・上級者向けの2モード。面のマージや境界線編集にも対応。</td>
+        <td><img src="images/He8abTG2Iok21pxFfFycI7uDn8g.png" alt="汎用分割"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box">
+    <strong>📢 訴求キーワード：</strong>
+    プリント対応パーツに自動変換 ／ コネクターも自動生成 ／ Blenderでのカットは不要 ／
+    手作業でのピン設計も不要 ／ 小さいプリンターで大きなモデルを出力 ／ 画像からアセンブリプリントまで一気通貫
+  </div>
+
+  <div class="workflow">モデル → 分割 → コネクター追加 → スライス → プリント → 組み立て</div>
+
+  <h3 id="highlight1" class="scroll-target">
+    <span class="anchor-icon">🔗</span>ハイライト1：キャラクターモデルの自動分割
+  </h3>
+  <p>Hi3Dは、人型・キャラクターモデルを丸ごとプリント可能なパーツへ分割できます。頭、胴体、腕、脚、武器、台座などを分離する、<strong>6種類のキャラクターベーステンプレート</strong>を搭載しています。</p>
+  <div class="img-row">
+    <img src="images/VsCbboUFioRS2WxqT9Zcv318nHd.png" alt="自動分割①">
+    <img src="images/XbPWbWvQvo9R79xonwQcL7wyn1b.png" alt="自動分割②">
+  </div>
+
+  <h3 id="highlight2" class="scroll-target">
+    <span class="anchor-icon">🔗</span>ハイライト2：プリント可能なパーツの生成
+  </h3>
+  <p>分割後、Hi3Dは<strong>水密状態のパーツ</strong>を出力します。単純にモデルをカットするだけでなく、そのままプリントワークフローに流せる「実際に使えるパーツ」を作ることを目標としています。</p>
+
+  <h3 id="highlight3" class="scroll-target">
+    <span class="anchor-icon">🔗</span>ハイライト3：組み立てコネクターの自動追加
+  </h3>
+  <p>スロット・コネクターピン・ほぞ構造・ボールジョイントなど、様々なコネクターをワンクリックで生成。展示フィギュアには固定コネクター、可動フィギュアにはボールジョイントを使い分けられます。</p>
+  <div class="img-row">
+    <div style="text-align:center;flex:1;min-width:180px;">
+      <img src="images/ZQ48bEuX9oXgATxOvF9cPGranbg.png" alt="ダブテール">
+      <p class="img-caption">ダブテールコネクター</p>
+    </div>
+    <div style="text-align:center;flex:1;min-width:180px;">
+      <img src="images/TIikbOwLqoUyMYx4z98cO3enn5b.png" alt="ボール">
+      <p class="img-caption">ボールコネクター</p>
+    </div>
+    <div style="text-align:center;flex:1;min-width:180px;">
+      <img src="images/VFm6bDI58okbVbxhCzAcO3vYnlb.png" alt="追加後">
+      <p class="img-caption">ボールコネクター追加後</p>
+    </div>
+  </div>
+
+  <h3 id="connectors" class="scroll-target">
+    <span class="anchor-icon">🔗</span>コネクタータイプ一覧
+  </h3>
+  <table>
+    <thead><tr><th>タイプ</th><th>イメージ</th><th>特徴</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>ボール</strong></td>
+        <td><img src="images/KjnhbXJWQo1qMbxcf0ccI67Gnpb.png" style="max-width:80px;box-shadow:none;margin:0;" alt=""></td>
+        <td>全方向への回転・ポーズ調整が可能</td>
+        <td>可動フィギュア・関節おもちゃ</td>
+      </tr>
+      <tr>
+        <td><strong>リベット</strong></td>
+        <td><img src="images/CK9AbnrBvo3nW2xSTaAcwlm7n1f.png" style="max-width:80px;box-shadow:none;margin:0;" alt=""></td>
+        <td>1軸回転のみ</td>
+        <td>腕・脚など一方向の可動構造</td>
+      </tr>
+      <tr>
+        <td><strong>ダブテール</strong></td>
+        <td><img src="images/R0tVbTVPhoziHyxRJZmcXwJanec.png" style="max-width:80px;box-shadow:none;margin:0;" alt=""></td>
+        <td>差し込み式・回転不可</td>
+        <td>静的フィギュア・展示モデル</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="key-box">
+    <h4>💡 キーメッセージ</h4>
+    <p>キャラクター生成 → ワンクリック分割 → コネクター自動生成 → 各パーツプリント → 組み立てて完成</p>
+    <ul style="margin-top:8px;">
+      <li>画面の中だけのキャラクターが、複数のプリント可能なパーツへ</li>
+      <li>各パーツを別々にプリントして組み立てられる</li>
+      <li>リアルなフィギュア・人型・模型おもちゃとして手元に残る</li>
+    </ul>
+  </div>
+
+  <h3>詳細設定を使うべきタイミング</h3>
+  <table>
+    <thead><tr><th>状況</th><th>元モデル</th><th>分割後</th><th>コネクター生成後</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>標準的なケース</strong></td>
+        <td><img src="images/Tb3HbRdj1oZJhwxnYkecnLJLnQb.png" alt="" style="margin:0;box-shadow:none;"></td>
+        <td><img src="images/YZFpbdPIdoAn1cxMWRZc62cknFd.png" alt="" style="margin:0;box-shadow:none;"></td>
+        <td><img src="images/QkXgbbuUXoTLe0xhq6acdovQnng.png" alt="" style="margin:0;box-shadow:none;"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>コネクター向き調整が必要な場合</h4>
+  <div class="img-grid-5">
+    <img src="images/HjHEb6XwNo1HJUxMLJ9cwY8SnGe.png" alt="">
+    <img src="images/BuXGbUoOJolivyxqrlWciniTnVh.png" alt="">
+    <img src="images/EbJebug1To2e3YxOPuHcHQrSnTc.png" alt="">
+    <img src="images/Nwz7bZa7pov1gsxzEEzcJattnVe.png" alt="">
+    <img src="images/AMotbeUROo7HjBxZxIWc34eFndf.png" alt="">
+  </div>
+
+  <p>参考事例：</p>
+  <div class="img-row">
+    <img src="images/JuD1bT2cJojSb9x83uEcJGdMnjw.png" alt="事例1">
+    <img src="images/LYSRbkX3zoPzcHxMrTAcvICKnwh.png" alt="事例2">
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- FEATURE 2 -->
+  <h2 id="feature2" class="scroll-target">
+    <span class="anchor-icon">🔗</span>機能アップデート2：スマート配置 ＋ 設定込み3MFエクスポート
+  </h2>
+  <p>多くのメイカーにとって、面倒なのは「モデルを作ること」ではなく、「プリントできる状態に整えること」です。向き調整・サポート材・パーツ間隔・スライサー設定——これらを Hi3D が一括でサポートします。</p>
+  <img src="images/VxEVbhsiQoXEjKxGgvncCLYQn5e.png" alt="スマート配置">
+
+  <h3 id="layout-modes" class="scroll-target">
+    <span class="anchor-icon">🔗</span>レイアウトモード
+  </h3>
+  <table>
+    <thead><tr><th>モード</th><th>説明</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>表面優先モード</strong></td>
+        <td>見える面をよりきれいに。展示モデル・キャラクター・バスト・小道具に最適。</td>
+      </tr>
+      <tr>
+        <td><strong>サポート最小化モード</strong></td>
+        <td>サポート材・後処理・コストを削減。繰り返し試作や実用品プリントに最適。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 id="benefits" class="scroll-target">
+    <span class="anchor-icon">🔗</span>主なメリット
+  </h3>
+  <ol>
+    <li><strong>スライス前の手動設定を大幅削減</strong>——パーツ自動配置でビルドプレート準備の手間がなくなる</li>
+    <li><strong>スライサー設定の提案機能</strong>——プリンター・フィラメント・サイズに応じた設定を自動提案</li>
+    <li><strong>複数パーツプリントをよりスムーズに</strong>——コネクター周りのサポート材を自動削減</li>
+    <li><strong>3MFワークフロー対応</strong>——Bambu Studio、OrcaSlicer などで直接開ける</li>
+  </ol>
+  <div class="img-row">
+    <div style="text-align:center;flex:1;min-width:180px;">
+      <img src="images/CkOZb7HM1oG50nx9xOecuU8fnoe.png" alt="対応スライサー">
+      <p class="img-caption">対応スライサー</p>
+    </div>
+    <div style="text-align:center;flex:1;min-width:180px;">
+      <img src="images/Wo7abveqdojlxoxKscycWH73nvg.png" alt="Bambu Studio連携">
+      <p class="img-caption">Bambu Studioへ自動パラメーター送信</p>
+    </div>
+  </div>
+
+  <div class="avoid-box">
+    <strong>動画での注意事項：</strong>
+    <ul>
+      <li>毎回必ず完璧なプリントができると約束しない</li>
+      <li>スライサー設定が完全に不要になるとは言わない</li>
+      <li>実際のフローを見せずに「ワンクリックでプリント完了」と言わない</li>
+    </ul>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- FEATURE 3 -->
+  <h2 id="feature3" class="scroll-target">
+    <span class="new-badge">NEW</span><span class="anchor-icon">🔗</span>機能アップデート3：マルチカラー印刷（Multi-Color Printing）
+  </h2>
+  <img src="images/GsIKblBMVoOjwjxDd7OcTcZMnug.png" alt="マルチカラー印刷">
+  <p>AIが生成した3Dモデルは、眺めている分にはほぼ完成品に見える…でも実際にカラーでプリントしようとすると問題が起きます。</p>
+
+  <div class="warning-box">
+    <strong>従来の課題：</strong>
+    <ul style="margin-top:6px;">
+      <li>色がリアルなフィラメントと対応していない</li>
+      <li>カラーリージョンが細かく分断されすぎている</li>
+      <li>手動での再ペイントに時間がかかりすぎる</li>
+      <li>デザインの意図とプリントコストが結びついていない</li>
+    </ul>
+  </div>
+
+  <div class="success-box">
+    <strong>Hi3Dが解決すること：</strong> AIが生成したテクスチャ付き3Dモデルを、色の再現度とコストをコントロールしながら、実際のフィラメントに対応したマルチカラープリント可能なオブジェクトへと変換します。
+  </div>
+
+  <p><strong>従来ツールとの比較：</strong></p>
+  <div class="img-row">
+    <div style="text-align:center;flex:1;">
+      <img src="images/Fsxhb0bgporEwExWbpBc3x47nIX.png" alt="Meshy">
+      <p class="img-caption">Meshy（従来）</p>
+    </div>
+    <div style="text-align:center;flex:1;">
+      <img src="images/EM0Mb2NbyohYJAxRq8tchF0angf.png" alt="Bambu">
+      <p class="img-caption">Bambu（従来）</p>
+    </div>
+  </div>
+
+  <h3 id="howto" class="scroll-target">
+    <span class="anchor-icon">🔗</span>使い方ステップ
+  </h3>
+  <div class="key-box">
+    <h4>ステップ1：テクスチャ付きモデルをアップロード</h4>
+    <img src="images/XHUObRtPAoXOGRx92jTcOHMSn4b.png" alt="ステップ1">
+  </div>
+  <div class="key-box">
+    <h4>ステップ2：プリント用カラーシステムを生成</h4>
+    <p>カラー数とディテールレベルを調整。低ディテール→断片を統合、高ディテール→シャープな境界を保持。</p>
+  </div>
+  <div class="key-box">
+    <h4>ステップ3：フィラメント素材に合わせたシミュレーション</h4>
+    <div class="img-row">
+      <img src="images/PRtgbLvP9oy6JXxY0yJcVY1unKb.png" alt="シミュレーション1">
+      <img src="images/FBBObxiCao8uolxekJjcWxQqn4f.png" alt="シミュレーション2">
+    </div>
+  </div>
+  <div class="key-box">
+    <h4>ステップ4：細かい調整（オプション）</h4>
+    <img src="images/FzOybUW0OoJnoCxxtI4cKBdznzd.png" alt="カラー調整">
+    <p style="margin-top:6px;">特定リージョンをクリックして手動でカラー変更可能</p>
+  </div>
+  <div class="key-box">
+    <h4>ステップ5：プリント最適化（約30秒）</h4>
+    <div class="img-grid-5" style="grid-template-columns:repeat(3,1fr);">
+      <img src="images/Igo6bWOdsoG6MtxLiKKcpRgvnyf.png" alt="">
+      <img src="images/Pdq4bK617oy8EDxviGwcAD8NnVg.png" alt="">
+      <img src="images/BOMYbDaAEodQeMxkFzDcEWvynhb.png" alt="">
+    </div>
+  </div>
+  <div class="key-box">
+    <h4>ステップ6：エクスポート / プリント / シェア</h4>
+    <img src="images/EiDnbdVtKotyR4xDZMmcJJBUnBd.png" alt="エクスポート">
+  </div>
+
+  <h3>ワークフローの広がり</h3>
+  <ul>
+    <li>マルチカラー ＋ モデル分割 → プリント可能な可動フィギュアへ</li>
+    <li>テンプレート制作 → スタイライズ → プリントパイプラインへ</li>
+    <li>「写真 → スタイライズドモデル → マルチカラープリント」の全ワークフロー</li>
+  </ul>
+  <h3>ユースケース</h3>
+  <ul>
+    <li>スポーツ／試合日のポスター → 3Dプリントコレクタブル</li>
+    <li>製品モックアップ → フィジカルプロトタイプ</li>
+    <li>キャラクター → マルチカラーフィギュア</li>
+  </ul>
+
+  <hr class="section-divider">
+
+  <!-- COMING SOON -->
+  <h2 id="coming-soon" class="scroll-target">
+    <span class="anchor-icon">🔗</span>近日公開：メイカーテンプレート（Maker Templates）
+  </h2>
+  <p>誰もがカスタム3Dモデルを一から作れるわけではありません。メイカーテンプレートは、モデリングツールや複雑なプロンプトなしに、自分だけのオリジナル作品を作れるよう設計された機能です。</p>
+  <ul>
+    <li>スタイライズド自分フィギュア</li>
+    <li>リアル自分フィギュア</li>
+    <li>ペットフィギュア</li>
+    <li>冷蔵庫マグネット</li>
+    <li>小さなパーソナライズコレクタブル</li>
+  </ul>
+  <p>写真をアップロードするかテーマを選ぶだけで、Hi3Dがプリント対応の3Dモデルを生成します。</p>
+  <div class="img-grid-4">
+    <img src="images/NL9rb7UgXo5q2KxagdzcAJJ2nVc.png" alt="">
+    <img src="images/L6FfbkP2BoKqpYxpfIOc2WmcnXf.png" alt="">
+    <img src="images/JJglbFYSAoUTQfx3loecnx6tnYg.png" alt="">
+    <img src="images/RWB3bFw16oT6ogxz3VJcTAgNnIg.png" alt="">
+  </div>
+
+</div><!-- /main -->
+
+<!-- ══════════════════════════════════════════════
+     FOOTER – SOCIAL ICONS
+══════════════════════════════════════════════ -->
+<footer id="footer">
+  <h2>🌐 Hi3D 公式アカウント</h2>
+  <div class="social-grid">
+    <a class="social-card" href="https://x.com/Hitem3D" target="_blank">
+      <div class="social-icon icon-x">𝕏</div>
+      <div class="social-info">
+        <div class="social-name">X (Twitter)</div>
+        <div class="social-handle">@Hitem3D</div>
+      </div>
+    </a>
+    <a class="social-card" href="https://www.youtube.com/@hitem3d" target="_blank">
+      <div class="social-icon icon-yt">▶</div>
+      <div class="social-info">
+        <div class="social-name">YouTube</div>
+        <div class="social-handle">@hitem3d</div>
+      </div>
+    </a>
+    <a class="social-card" href="https://www.instagram.com/hi3d.ai/" target="_blank">
+      <div class="social-icon icon-ig">📸</div>
+      <div class="social-info">
+        <div class="social-name">Instagram</div>
+        <div class="social-handle">@hi3d.ai</div>
+      </div>
+    </a>
+    <a class="social-card" href="https://www.tiktok.com/@hi3d.ai" target="_blank">
+      <div class="social-icon icon-tt">♪</div>
+      <div class="social-info">
+        <div class="social-name">TikTok</div>
+        <div class="social-handle">@hi3d.ai</div>
+      </div>
+    </a>
+    <a class="social-card" href="https://www.g2.com/products/hi3d/reviews" target="_blank">
+      <div class="social-icon icon-g2" style="background:#ff492c;color:#fff;font-weight:900;font-size:16px;">G2</div>
+      <div class="social-info">
+        <div class="social-name">G2 レビュー</div>
+        <div class="social-handle">レビューを書く ⭐</div>
+      </div>
+    </a>
+    <a class="social-card" href="https://www.hi3d.ai" target="_blank">
+      <div class="social-icon" style="background:linear-gradient(135deg,#2563eb,#0ea5e9);color:#fff;font-weight:900;font-size:14px;">Hi3D</div>
+      <div class="social-info">
+        <div class="social-name">公式サイト</div>
+        <div class="social-handle">www.hi3d.ai</div>
+      </div>
+    </a>
+  </div>
+  <p class="footer-note">
+    ※ G2アカウントをお持ちの方は、ぜひレビューをお寄せください。皆さんのフィードバックをお待ちしています！<br>
+    © Hi3D — 日本語クリエイター向けガイド
+  </p>
+</footer>
+
+<!-- ══════════════════════════════════════════════
+     SCROLL SPY – TOC HIGHLIGHT
+══════════════════════════════════════════════ -->
+<script>
+(function() {
+  const links = document.querySelectorAll('#sidebar a');
+  const targets = Array.from(links)
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  function onScroll() {
+    const scrollY = window.scrollY + 80;
+    let current = null;
+    targets.forEach(t => {
+      if (t.offsetTop <= scrollY) current = t;
+    });
+    links.forEach(a => a.classList.remove('active'));
+    if (current) {
+      const active = document.querySelector(`#sidebar a[href="#${current.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, {passive: true});
+  onScroll();
+
+  // Anchor copy on click
+  document.querySelectorAll('.anchor-icon').forEach(icon => {
+    icon.addEventListener('click', function() {
+      const heading = this.parentElement;
+      const id = heading.id;
+      if (id) {
+        navigator.clipboard.writeText(window.location.href.split('#')[0] + '#' + id)
+          .then(() => { this.textContent = '✅'; setTimeout(() => this.textContent = '🔗', 1000); });
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
