@@ -181,14 +181,20 @@
   img { max-width: 100%; height: auto; display: block; margin: 14px auto;
         border-radius: 6px; box-shadow: 0 2px 12px rgba(0,0,0,.1); }
   .img-caption { text-align: center; font-size: 12px; color: var(--muted);
-                 margin: -8px 0 14px; }
-  .img-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 14px 0; }
-  .img-row img { flex: 1; min-width: 200px; max-width: 49%; margin: 0; }
-  .img-row-3 img { max-width: 32%; }
+                 margin: 6px 0 4px; }
+  .img-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 14px 0; align-items: flex-start; }
+  .img-row > img { flex: 1; min-width: 200px; max-width: 49%; margin: 0;
+                    height: 200px; object-fit: contain; background: #f5f5f5; }
+  .img-row .img-cell { flex: 1; min-width: 200px; max-width: 49%; text-align: center; }
+  .img-row .img-cell img { width: 100%; height: 200px; object-fit: contain; background: #f5f5f5; margin: 0; }
+  .img-row-3 > img, .img-row-3 .img-cell { max-width: 32%; }
   .img-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin: 14px 0; }
-  .img-grid-4 img { margin: 0; width: 100%; }
+  .img-grid-4 img { margin: 0; width: 100%; height: 160px; object-fit: contain; background: #f5f5f5; }
   .img-grid-5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; margin: 14px 0; }
-  .img-grid-5 img { margin: 0; width: 100%; }
+  .img-grid-5 img { margin: 0; width: 100%; height: 140px; object-fit: contain; background: #f5f5f5; }
+  .table-img { width: 100%; height: 170px; object-fit: contain; background: #f5f5f5;
+               border-radius: 6px; box-shadow: none; margin: 0; }
+  .table-icon { width: 72px; height: 72px; object-fit: contain; box-shadow: none; margin: 0 auto; }
 
   /* ── DIVIDER ── */
   .section-divider {
@@ -286,7 +292,7 @@
     <div class="toc-h2"><a href="#feature2">機能2：スマート配置＋3MF</a></div>
     <div class="toc-h3"><a href="#layout-modes">▸ レイアウトモード</a></div>
     <div class="toc-h3"><a href="#benefits">▸ 主なメリット</a></div>
-    <div class="toc-h2"><a href="#feature3">機能3：マルチカラー印刷</a></div>
+    <div class="toc-h2"><a href="#feature3">⭐ 機能3：マルチカラー印刷（主打）</a></div>
     <div class="toc-h3"><a href="#howto">▸ 使い方ステップ</a></div>
     <div class="toc-h2"><a href="#coming-soon">近日公開：メイカーテンプレート</a></div>
   </div>
@@ -304,6 +310,14 @@
     <span class="badge">🇯🇵 日本語版</span>
     <span class="badge">3D Printing</span>
     <span class="badge">AI 3D Creator</span>
+    <span class="badge">⭐ 今回の主役機能：マルチカラー印刷</span>
+  </div>
+
+  <!-- ── AT A GLANCE ── -->
+  <div class="key-box">
+    <p style="margin:4px 0;">📌 <strong>背景：</strong>Hi3D 1周年セール × 新機能「マルチカラー印刷」ローンチ</p>
+    <p style="margin:4px 0;">🎯 <strong>目標：</strong>日本のクリエイターに新機能を体験・発信してもらい、認知を広げる</p>
+    <p style="margin:4px 0;">✅ <strong>要求：</strong>実際の使用フローを正直に見せる＋必須ハッシュタグ／トラッキングリンクを掲載</p>
   </div>
 
   <!-- ══════════════ PART 1 ══════════════ -->
@@ -313,21 +327,14 @@
   <h2 id="background" class="scroll-target">
     <span class="anchor-icon">🔗</span>1. 背景（BACKGROUND）
   </h2>
-  <p>Hi3Dは <strong>Hitem3D</strong> からブランドをアップグレードしました。</p>
-  <p>Hi3Dは、メイカー・3Dプリントクリエイター・ゲームアーティスト・デジタルアーティスト、そして「アイデアを使える3Dアセットにしたい」と思うすべての人のために作られた、<strong>AI 3D制作プラットフォーム</strong>です。</p>
-
-  <div class="info-box">
-    <strong>スローガン：</strong>All-in-one 3D maker platform（オールインワン3Dメイカープラットフォーム）
-  </div>
-
-  <p>私たちは、AIが生成した3Dモデルを、プリント対応・物理的に製造可能なオブジェクトへと変換するツールを作っています。マルチカラー印刷・モデル分割・アセンブリ準備まで一括でサポートします。</p>
+  <p>Hi3D（旧 Hitem3D）は、AIが生成した3Dモデルを、そのままプリントできる形に変換する<strong>オールインワンAI 3D制作プラットフォーム</strong>です。マルチカラー印刷・モデル分割・組み立て準備まで、一つのツールでまとめて対応します。</p>
 
   <div class="success-box">
-    🌐 公式サイト：<a href="https://www.hi3d.ai" target="_blank"><strong>https://www.hi3d.ai</strong></a>
+    🌐 <a href="https://www.hi3d.ai" target="_blank"><strong>https://www.hi3d.ai</strong></a>
   </div>
 
   <div class="tip-box">
-    <strong>📝 Note：</strong>クリエイティブに厳しい制約はありません。あなたのチャンネルスタイルと視聴者が楽しむコンテンツを最優先してください。製品フィードバックもぜひお聞かせください。皆さんのご意見は本当に大切にしています。また、コラボに合いそうな他のクリエイターをご存知でしたら、ご紹介いただけると嬉しいです。
+    <strong>📝 Note：</strong>チャンネルスタイルを最優先にしてOKです。率直な製品フィードバックや、コラボ候補クリエイターのご紹介も歓迎します。
   </div>
 
   <!-- ── 2. WHAT CREATORS CAN DO ── -->
@@ -393,7 +400,7 @@
   </div>
 
   <div class="key-box">
-    <h4>📸 Hi3Dオリジナルモデルを最低4つ紹介</h4>
+    <h4>📸 Hi3Dオリジナルモデルを4点以上紹介</h4>
     <p>良い事例は <a href="https://mathmagic.feishu.cn/wiki/WkoKwEWLHiL42Tk0AjLchavTnof?table=tblCd9hg9CPviMxc&view=vewmxeuimc" target="_blank">ベストケースシート</a> でご確認ください。</p>
   </div>
 
@@ -409,7 +416,7 @@
 
   <div class="key-box">
     <h4>🆓 無料トライアルの強み</h4>
-    <p>Hi3Dは無料トライアル期間中にモデルの生成＆ダウンロードが可能。一部の競合サービスはダウンロードに追加クレジットが必要ですが、Hi3Dは不要です。</p>
+    <p>Hi3Dは無料トライアル期間中でも、モデルの生成からダウンロードまで行えます。競合サービスの中にはダウンロードに追加クレジットが必要なものもありますが、Hi3Dはその必要がありません。</p>
   </div>
 
   <div class="info-box">
@@ -440,7 +447,11 @@
   <h2 id="content-angle" class="scroll-target">
     <span class="anchor-icon">🔗</span>5. コンテンツの方向性（Content Angle）
   </h2>
-  <p>メイカー・3Dアーティスト・デジタルクリエイター・AIエンスージアストの皆さんと協力して、Hi3Dの可能性と実力をアピールしていきたいと思っています。</p>
+  <p>メイカーや3Dアーティスト、デジタルクリエイター、AIエンスージアストの皆さんと一緒に、Hi3Dの実力を伝えていきたいと思っています。</p>
+
+  <div class="key-box">
+    <p style="margin:0;">⭐ <strong>優先コンテンツ：</strong>まずは<strong>マルチカラー印刷</strong>のワークフロー動画を。他のスタイルはその後のバリエーションでOKです。</p>
+  </div>
 
   <h3 id="content-styles" class="scroll-target">
     <span class="anchor-icon">🔗</span>スタイル別動画例
@@ -543,9 +554,9 @@
     <ul style="margin-top:8px;">
       <li>動画サムネイルにHi3Dロゴを目立つ位置に配置（任意）→ <a href="https://docs.google.com/document/d/18-vgBS9ob2-KsbQcdcyvQbgM2zDAN8Vc7C09BreajBE/edit?tab=t.0" target="_blank">Hi3Dロゴをダウンロード</a></li>
       <li>MakerWorldへのクロスポスト（任意）</li>
-      <li>投稿のブースト許可</li>
-      <li>プロモコード入力 or トラッキングリンクからの登録：<strong>最初の200名に追加500クレジット</strong></li>
-      <li>IG：コラボ投稿＋トラッキングリンク付きストーリー</li>
+      <li>投稿をHi3D公式が広告ブーストで二次利用することを許可</li>
+      <li>プロモコード入力、またはトラッキングリンクからの登録：<strong>先着200名に追加500クレジット</strong></li>
+      <li>Instagram：コラボ投稿＋トラッキングリンク付きストーリーズ投稿</li>
     </ul>
   </div>
 
@@ -556,7 +567,7 @@
   <hr class="section-divider">
 
   <!-- ══════════════ PART 2 ══════════════ -->
-  <div class="part-label">✨ Part 2 ── Hi3D 新機能ハイライト</div>
+  <div class="part-label">✨ Part 2 ── Hi3D 新機能ハイライト（本輪主打：マルチカラー印刷）</div>
 
   <!-- PROMO -->
   <div class="promo-box" id="promo">
@@ -569,7 +580,7 @@
   <h2 id="beta" class="scroll-target">
     <span class="anchor-icon">🔗</span>🔬 Hitem3D 新機能 早期ベータ参加者募集（限定枠）
   </h2>
-  <p>Hitem3Dの新機能「マルチカラー印刷」の早期ベータテストに参加する方を、限定で募集しています。</p>
+  <p>Hitem3Dの新機能「マルチカラー印刷」の早期ベータテスターを限定募集しています。</p>
   <div class="success-box">
     <strong>参加特典：</strong>
     <ul style="margin-top:6px;">
@@ -583,7 +594,7 @@
 
   <!-- FEATURE 1 -->
   <h2 id="feature1" class="scroll-target">
-    <span class="anchor-icon">🔗</span>機能アップデート1：パーツ分割プリント（Split-for-Printing）
+    <span class="anchor-icon">🔗</span>機能1：パーツ分割プリント（Split-for-Printing）
   </h2>
 
   <table>
@@ -591,13 +602,13 @@
     <tbody>
       <tr>
         <td><strong>キャラクター</strong></td>
-        <td>フィギュア・ミニチュア・人型モデルに対応。体のパーツ分割テンプレート内蔵。ワンクリックで分割＆コネクター自動生成。</td>
-        <td><img src="images/QB8wbFAVFovTFMxJnY6cJVjEnDg.png" alt="キャラクター分割"></td>
+        <td>フィギュア・ミニチュア・人型モデルに対応。体のパーツ分割用テンプレートを内蔵しており、ワンクリックで分割からコネクター生成まで完了します。</td>
+        <td><img class="table-img" src="images/QB8wbFAVFovTFMxJnY6cJVjEnDg.png" alt="キャラクター分割"></td>
       </tr>
       <tr>
         <td><strong>汎用</strong></td>
         <td>建築物・武器・乗り物・機械など人型以外のモデルに対応。初心者向け・上級者向けの2モード。面のマージや境界線編集にも対応。</td>
-        <td><img src="images/He8abTG2Iok21pxFfFycI7uDn8g.png" alt="汎用分割"></td>
+        <td><img class="table-img" src="images/He8abTG2Iok21pxFfFycI7uDn8g.png" alt="汎用分割"></td>
       </tr>
     </tbody>
   </table>
@@ -613,7 +624,7 @@
   <h3 id="highlight1" class="scroll-target">
     <span class="anchor-icon">🔗</span>ハイライト1：キャラクターモデルの自動分割
   </h3>
-  <p>Hi3Dは、人型・キャラクターモデルを丸ごとプリント可能なパーツへ分割できます。頭、胴体、腕、脚、武器、台座などを分離する、<strong>6種類のキャラクターベーステンプレート</strong>を搭載しています。</p>
+  <p>Hi3Dは、人型・キャラクターモデルを丸ごとプリント可能なパーツへ分割できます。頭・胴体・腕・脚・武器・台座などに分けられる、<strong>6種類のキャラクター用ベーステンプレート</strong>を搭載しています。</p>
   <div class="img-row">
     <img src="images/VsCbboUFioRS2WxqT9Zcv318nHd.png" alt="自動分割①">
     <img src="images/XbPWbWvQvo9R79xonwQcL7wyn1b.png" alt="自動分割②">
@@ -622,23 +633,23 @@
   <h3 id="highlight2" class="scroll-target">
     <span class="anchor-icon">🔗</span>ハイライト2：プリント可能なパーツの生成
   </h3>
-  <p>分割後、Hi3Dは<strong>水密状態のパーツ</strong>を出力します。単純にモデルをカットするだけでなく、そのままプリントワークフローに流せる「実際に使えるパーツ」を作ることを目標としています。</p>
+  <p>分割後は、隙間のない<strong>水密（ウォータータイト）なパーツ</strong>として出力されます。単にモデルを切るだけでなく、そのままプリントに回せる「実際に使えるパーツ」に仕上げることを目指しています。</p>
 
   <h3 id="highlight3" class="scroll-target">
     <span class="anchor-icon">🔗</span>ハイライト3：組み立てコネクターの自動追加
   </h3>
   <p>スロット・コネクターピン・ほぞ構造・ボールジョイントなど、様々なコネクターをワンクリックで生成。展示フィギュアには固定コネクター、可動フィギュアにはボールジョイントを使い分けられます。</p>
   <div class="img-row">
-    <div style="text-align:center;flex:1;min-width:180px;">
-      <img src="images/ZQ48bEuX9oXgATxOvF9cPGranbg.png" alt="ダブテール" style="width:100%;height:200px;object-fit:contain;background:#f5f5f5;border-radius:6px;">
+    <div class="img-cell">
+      <img src="images/ZQ48bEuX9oXgATxOvF9cPGranbg.png" alt="ダブテール">
       <p class="img-caption">ダブテールコネクター</p>
     </div>
-    <div style="text-align:center;flex:1;min-width:180px;">
-      <img src="images/TIikbOwLqoUyMYx4z98cO3enn5b.png" alt="ボール" style="width:100%;height:200px;object-fit:contain;background:#f5f5f5;border-radius:6px;">
+    <div class="img-cell">
+      <img src="images/TIikbOwLqoUyMYx4z98cO3enn5b.png" alt="ボール">
       <p class="img-caption">ボールコネクター</p>
     </div>
-    <div style="text-align:center;flex:1;min-width:180px;">
-      <img src="images/VFm6bDI58okbVbxhCzAcO3vYnlb.png" alt="追加後" style="width:100%;height:200px;object-fit:contain;background:#f5f5f5;border-radius:6px;">
+    <div class="img-cell">
+      <img src="images/VFm6bDI58okbVbxhCzAcO3vYnlb.png" alt="追加後">
       <p class="img-caption">ボールコネクター追加後</p>
     </div>
   </div>
@@ -651,19 +662,19 @@
     <tbody>
       <tr>
         <td><strong>ボール</strong></td>
-        <td><img src="images/KjnhbXJWQo1qMbxcf0ccI67Gnpb.png" style="max-width:80px;box-shadow:none;margin:0;" alt=""></td>
+        <td><img class="table-icon" src="images/KjnhbXJWQo1qMbxcf0ccI67Gnpb.png" alt=""></td>
         <td>全方向への回転・ポーズ調整が可能</td>
         <td>可動フィギュア・関節おもちゃ</td>
       </tr>
       <tr>
         <td><strong>リベット</strong></td>
-        <td><img src="images/CK9AbnrBvo3nW2xSTaAcwlm7n1f.png" style="max-width:80px;box-shadow:none;margin:0;" alt=""></td>
+        <td><img class="table-icon" src="images/CK9AbnrBvo3nW2xSTaAcwlm7n1f.png" alt=""></td>
         <td>1軸回転のみ</td>
         <td>腕・脚など一方向の可動構造</td>
       </tr>
       <tr>
         <td><strong>ダブテール</strong></td>
-        <td><img src="images/R0tVbTVPhoziHyxRJZmcXwJanec.png" style="max-width:80px;box-shadow:none;margin:0;" alt=""></td>
+        <td><img class="table-icon" src="images/R0tVbTVPhoziHyxRJZmcXwJanec.png" alt=""></td>
         <td>差し込み式・回転不可</td>
         <td>静的フィギュア・展示モデル</td>
       </tr>
@@ -674,21 +685,21 @@
     <h4>💡 キーメッセージ</h4>
     <p>キャラクター生成 → ワンクリック分割 → コネクター自動生成 → 各パーツプリント → 組み立てて完成</p>
     <ul style="margin-top:8px;">
-      <li>画面の中だけのキャラクターが、複数のプリント可能なパーツへ</li>
+      <li>画面の中だけだったキャラクターが、プリント可能な複数パーツに生まれ変わる</li>
       <li>各パーツを別々にプリントして組み立てられる</li>
-      <li>リアルなフィギュア・人型・模型おもちゃとして手元に残る</li>
+      <li>リアルなフィギュアや模型として手元に残せる</li>
     </ul>
   </div>
 
-  <h3>詳細設定を使うべきタイミング</h3>
+  <h3>詳細設定を使うケース</h3>
   <table>
     <thead><tr><th>状況</th><th>元モデル</th><th>分割後</th><th>コネクター生成後</th></tr></thead>
     <tbody>
       <tr>
         <td><strong>標準的なケース</strong></td>
-        <td><img src="images/Tb3HbRdj1oZJhwxnYkecnLJLnQb.png" alt="" style="margin:0;box-shadow:none;"></td>
-        <td><img src="images/YZFpbdPIdoAn1cxMWRZc62cknFd.png" alt="" style="margin:0;box-shadow:none;"></td>
-        <td><img src="images/QkXgbbuUXoTLe0xhq6acdovQnng.png" alt="" style="margin:0;box-shadow:none;"></td>
+        <td><img class="table-img" src="images/Tb3HbRdj1oZJhwxnYkecnLJLnQb.png" alt=""></td>
+        <td><img class="table-img" src="images/YZFpbdPIdoAn1cxMWRZc62cknFd.png" alt=""></td>
+        <td><img class="table-img" src="images/QkXgbbuUXoTLe0xhq6acdovQnng.png" alt=""></td>
       </tr>
     </tbody>
   </table>
@@ -712,7 +723,7 @@
 
   <!-- FEATURE 2 -->
   <h2 id="feature2" class="scroll-target">
-    <span class="anchor-icon">🔗</span>機能アップデート2：スマート配置 ＋ 設定込み3MFエクスポート
+    <span class="anchor-icon">🔗</span>機能2：スマート配置 ＋ 設定込み3MFエクスポート
   </h2>
   <p>多くのメイカーにとって、面倒なのは「モデルを作ること」ではなく、「プリントできる状態に整えること」です。向き調整・サポート材・パーツ間隔・スライサー設定——これらを Hi3D が一括でサポートします。</p>
   <img src="images/VxEVbhsiQoXEjKxGgvncCLYQn5e.png" alt="スマート配置">
@@ -738,18 +749,18 @@
     <span class="anchor-icon">🔗</span>主なメリット
   </h3>
   <ol>
-    <li><strong>スライス前の手動設定を大幅削減</strong>——パーツ自動配置でビルドプレート準備の手間がなくなる</li>
-    <li><strong>スライサー設定の提案機能</strong>——プリンター・フィラメント・サイズに応じた設定を自動提案</li>
-    <li><strong>複数パーツプリントをよりスムーズに</strong>——コネクター周りのサポート材を自動削減</li>
-    <li><strong>3MFワークフロー対応</strong>——Bambu Studio、OrcaSlicer などで直接開ける</li>
+    <li><strong>スライス前の手動設定を大幅に削減：</strong>パーツが自動配置されるため、ビルドプレートの準備に手間がかかりません</li>
+    <li><strong>スライサー設定の提案機能：</strong>プリンター・フィラメント・サイズに応じた設定を自動で提案します</li>
+    <li><strong>複数パーツプリントがよりスムーズに：</strong>コネクター周りのサポート材を自動で削減します</li>
+    <li><strong>3MFワークフローに対応：</strong>Bambu Studio、OrcaSlicerなどで直接開けます</li>
   </ol>
   <div class="img-row">
-    <div style="text-align:center;flex:1;min-width:180px;">
-      <img src="images/CkOZb7HM1oG50nx9xOecuU8fnoe.png" alt="対応スライサー" style="width:100%;height:200px;object-fit:contain;background:#f5f5f5;border-radius:6px;">
+    <div class="img-cell">
+      <img src="images/CkOZb7HM1oG50nx9xOecuU8fnoe.png" alt="対応スライサー">
       <p class="img-caption">対応スライサー</p>
     </div>
-    <div style="text-align:center;flex:1;min-width:180px;">
-      <img src="images/Wo7abveqdojlxoxKscycWH73nvg.png" alt="Bambu Studio連携" style="width:100%;height:200px;object-fit:contain;background:#f5f5f5;border-radius:6px;">
+    <div class="img-cell">
+      <img src="images/Wo7abveqdojlxoxKscycWH73nvg.png" alt="Bambu Studio連携">
       <p class="img-caption">Bambu Studioへ自動パラメーター送信</p>
     </div>
   </div>
@@ -757,8 +768,8 @@
   <div class="avoid-box">
     <strong>動画での注意事項：</strong>
     <ul>
-      <li>毎回必ず完璧なプリントができると約束しない</li>
-      <li>スライサー設定が完全に不要になるとは言わない</li>
+      <li>「毎回必ず完璧にプリントできる」と断言しない</li>
+      <li>「スライサー設定が一切不要になる」とは言わない</li>
       <li>実際のフローを見せずに「ワンクリックでプリント完了」と言わない</li>
     </ul>
   </div>
@@ -767,7 +778,7 @@
 
   <!-- FEATURE 3 -->
   <h2 id="feature3" class="scroll-target">
-    <span class="new-badge">NEW</span><span class="anchor-icon">🔗</span>機能アップデート3：マルチカラー印刷（Multi-Color Printing）
+    <span class="new-badge">NEW</span><span class="new-badge" style="background:#f59e0b;">⭐ 本輪主打</span><span class="anchor-icon">🔗</span>機能3：マルチカラー印刷（Multi-Color Printing）
   </h2>
   <img src="images/GsIKblBMVoOjwjxDd7OcTcZMnug.png" alt="マルチカラー印刷">
   <p>AIが生成した3Dモデルは、眺めている分にはほぼ完成品に見える…でも実際にカラーでプリントしようとすると問題が起きます。</p>
@@ -788,12 +799,12 @@
 
   <p><strong>従来ツールとの比較：</strong></p>
   <div class="img-row">
-    <div style="text-align:center;flex:1;">
-      <img src="images/Fsxhb0bgporEwExWbpBc3x47nIX.png" alt="Meshy" style="width:100%;height:220px;object-fit:contain;background:#f5f5f5;border-radius:6px;">
+    <div class="img-cell">
+      <img src="images/Fsxhb0bgporEwExWbpBc3x47nIX.png" alt="Meshy">
       <p class="img-caption">Meshy（従来）</p>
     </div>
-    <div style="text-align:center;flex:1;">
-      <img src="images/EM0Mb2NbyohYJAxRq8tchF0angf.png" alt="Bambu" style="width:100%;height:220px;object-fit:contain;background:#f5f5f5;border-radius:6px;">
+    <div class="img-cell">
+      <img src="images/EM0Mb2NbyohYJAxRq8tchF0angf.png" alt="Bambu">
       <p class="img-caption">Bambu（従来）</p>
     </div>
   </div>
@@ -807,7 +818,7 @@
   </div>
   <div class="key-box">
     <h4>ステップ2：プリント用カラーシステムを生成</h4>
-    <p>カラー数とディテールレベルを調整。低ディテール→断片を統合、高ディテール→シャープな境界を保持。</p>
+    <p>カラー数とディテールレベルを調整できます。ディテールを下げると細かい断片がまとまり、上げると境界がシャープに保たれます。</p>
   </div>
   <div class="key-box">
     <h4>ステップ3：フィラメント素材に合わせたシミュレーション</h4>
@@ -819,7 +830,7 @@
   <div class="key-box">
     <h4>ステップ4：細かい調整（オプション）</h4>
     <img src="images/FzOybUW0OoJnoCxxtI4cKBdznzd.png" alt="カラー調整">
-    <p style="margin-top:6px;">特定リージョンをクリックして手動でカラー変更可能</p>
+    <p style="margin-top:6px;">気になる部分をクリックすれば、手動で色を変更できます</p>
   </div>
   <div class="key-box">
     <h4>ステップ5：プリント最適化（約30秒）</h4>
@@ -855,11 +866,11 @@
   </h2>
   <p>誰もがカスタム3Dモデルを一から作れるわけではありません。メイカーテンプレートは、モデリングツールや複雑なプロンプトなしに、自分だけのオリジナル作品を作れるよう設計された機能です。</p>
   <ul>
-    <li>スタイライズド自分フィギュア</li>
-    <li>リアル自分フィギュア</li>
+    <li>スタイライズド系セルフフィギュア</li>
+    <li>リアル系セルフフィギュア</li>
     <li>ペットフィギュア</li>
     <li>冷蔵庫マグネット</li>
-    <li>小さなパーソナライズコレクタブル</li>
+    <li>小さなパーソナライズドコレクタブル</li>
   </ul>
   <p>写真をアップロードするかテーマを選ぶだけで、Hi3Dがプリント対応の3Dモデルを生成します。</p>
   <div class="img-grid-4">
